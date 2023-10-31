@@ -31,4 +31,30 @@ public class EFContext : DbContext
                 }
         }
     }
+
+    public void filterDueDate()
+    {
+        using (var db = new EFContext())
+        {
+            var list = db.TodoTasks.ToList();
+            list.Sort((a, b) => a.DueDate.CompareTo(b.DueDate));
+            foreach (var eList in list)
+            {
+                _todoView.display(eList.Id + " " +eList.Name + " " + eList.DueDate);
+            }
+        }
+    }
+
+    public void filterPriority()
+    {
+        using (var db = new EFContext())
+        {
+            var list = db.TodoTasks.ToList();
+            list.Sort((a, b) => a.Priority.CompareTo(b.Priority));
+            foreach (var eList in list)
+            {
+                _todoView.display(eList.Id + " " +eList.Name + " " + eList.Priority);
+            }
+        }
+    } 
 }

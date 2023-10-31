@@ -66,8 +66,17 @@ public class TodoList
         string[] argument = input.Split(" ");
         switch (argument[0])
         {
-            case "Completed" when input.Length < 1:
+            case "Completed":
                 _efContext.findCompleted(bool.Parse(argument[1]));
+                break;
+            case "DueDate":
+                _efContext.filterDueDate();
+                break;
+            case "Priority":
+                _efContext.filterPriority();
+                break;
+            default:
+                _todoView.display("Error, incorrect command or don't exist");
                 break;
         }
     }
