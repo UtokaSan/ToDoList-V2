@@ -9,7 +9,7 @@ public class TodoView
 
     public void HelpCommandFilter()
     {
-        Console.WriteLine("Filter task completed : Completed\n" +
+        Console.WriteLine("Filter task completed : Completed [true/false]\n" +
                           "Filter due date : DueDate\n" +
                           "Filter priority : Priority");
     } 

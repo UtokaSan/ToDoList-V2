@@ -20,7 +20,7 @@ public class TodoList
         _crud = new Crud(_efContext);
     }
     /// <summary>
-    /// Method Menu for manage command
+    /// Method Menu for manage menu command
     /// </summary>
     public void Menu()
     {
@@ -31,25 +31,26 @@ public class TodoList
             _todoView.display("Enter a command :");
             string input = Console.ReadLine();
             string[] argument = input.Split(" ");
-            switch (argument[0])
+            Commands command = (Commands)Enum.Parse(typeof(Commands), argument[0]); 
+            switch (command)
             {
-                case "Help":
+                case Commands.Help:
                     _displayMenu.HelpMenuCommand();
                     break;
-                case "Add":
+                case Commands.Add:
                     string todoTaskDescription = string.Join(" ", argument.Skip(4));
                     _crud.CreateTodoTask(ParsePriority(argument[1]), ParseDate(argument[2]), argument[3], todoTaskDescription, false);
                     break;
-                case "Update":
+                case Commands.Update:
                     _crud.UpdateTodoTask(int.Parse(argument[1]), argument[2]);
                     break;
-                case "Remove":
+                case Commands.Remove:
                     _crud.deleteTodoTask(int.Parse(argument[1]));
                     break;
-                case "Filter":
+                case Commands.Filter:
                     FilterManager();
                     break;
-                case "Show":
+                case Commands.Show:
                     _crud.ReadTodoTask();
                     break;
                 default:
@@ -58,21 +59,26 @@ public class TodoList
             }
         }
     }
+    
+    /// <summary>
+    /// Method FilterManager for manage filter commands
+    /// </summary>
     private void FilterManager()
     {
         _todoView.HelpCommandFilter();
         _todoView.display("Enter commands : ");
         string input = Console.ReadLine();
         string[] argument = input.Split(" ");
-        switch (argument[0])
+        Commands command = (Commands)Enum.Parse(typeof(Commands), argument[0]); 
+        switch (command)
         {
-            case "Completed":
+            case Commands.Completed:
                 _efContext.findCompleted(bool.Parse(argument[1]));
                 break;
-            case "DueDate":
+            case Commands.DueDate:
                 _efContext.filterDueDate();
                 break;
-            case "Priority":
+            case Commands.Priority:
                 _efContext.filterPriority();
                 break;
             default:
@@ -80,12 +86,21 @@ public class TodoList
                 break;
         }
     }
-    
+    /// <summary>
+    /// Parse string to date
+    /// </summary>
+    /// <param name="date">date string for convert</param>
+    /// <returns>Parsed date</returns>
     private DateTime ParseDate(string date)
     {
         return DateTime.ParseExact(date, "dd/MM/yyyy", CultureInfo.InvariantCulture);
     }
-
+    
+    /// <summary>
+    /// Parse string to priority
+    /// </summary>
+    /// <param name="priority">priority string for convert</param>
+    /// <returns>Parsed priority</returns>
     private PriorityStatus ParsePriority(string priority)
     {
         return Enum.Parse<PriorityStatus>(priority);
