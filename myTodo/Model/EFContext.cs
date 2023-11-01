@@ -7,6 +7,7 @@ namespace myTodo.Model;
 public class EFContext : DbContext
 {
     public DbSet<TodoTask> TodoTasks { get; set; }
+    public DbSet<User> Users { get; set; }
     private const string connectionString = "Server=(localdb)\\mssqllocaldb;Database=EFCore;Trusted_Connection=True;";
     private TodoView _todoView;
 

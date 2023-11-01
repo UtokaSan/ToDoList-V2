@@ -8,11 +8,11 @@ public class Crud
 {
     private TodoView _todoView;
     private EFContext _efContext;
+    private User _user;
     public Crud(EFContext efContext)
     {
         _todoView = new TodoView();
         _efContext = efContext;
-
     }
     public void CreateTodoTask(PriorityStatus priority, DateTime dueDate, string name,
         string? description, bool isCompleted)

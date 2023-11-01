@@ -6,6 +6,8 @@ public class TodoTask
 {
     [Key]
     public int Id { get; set; }
+
+    public List<int> TodoTaskIds;
     public string Name { get; set; }
     public string? Description { get; set; }
     public PriorityStatus Priority { get; set; }
@@ -27,6 +29,7 @@ public class TodoTask
     public override string ToString()
     {
         return
-            $"Task: {Name}, Priority: {Priority}, Due Date: {DueDate}, Completed: {IsCompleted}, Description: {Description}";
+            $"Task: {Name}, Priority: {Priority}, Due Date: {DueDate}, " +
+            $"Completed: {IsCompleted}, Description: {Description}";
     }
 }
