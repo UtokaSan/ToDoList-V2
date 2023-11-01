@@ -27,7 +27,7 @@ public class EFContext : DbContext
                 var result = db.TodoTasks.Where(x => x.IsCompleted == completed).ToList();
                 foreach (var eResult in result)
                 {
-                    _todoView.display(eResult.Id + " " +eResult.Name + " " + eResult.IsCompleted);
+                    _todoView.display($"{eResult.Id} {eResult.Name} {eResult.IsCompleted}");
                 }
         }
     }
@@ -40,7 +40,7 @@ public class EFContext : DbContext
             list.Sort((a, b) => a.DueDate.CompareTo(b.DueDate));
             foreach (var eList in list)
             {
-                _todoView.display(eList.Id + " " +eList.Name + " " + eList.DueDate);
+                _todoView.display($"{eList.Id} {eList.Name} {eList.DueDate}");
             }
         }
     }
@@ -53,7 +53,7 @@ public class EFContext : DbContext
             list.Sort((a, b) => a.Priority.CompareTo(b.Priority));
             foreach (var eList in list)
             {
-                _todoView.display(eList.Id + " " +eList.Name + " " + eList.Priority);
+                _todoView.display($"{eList.Id} {eList.Name} {eList.Priority}");
             }
         }
     } 
