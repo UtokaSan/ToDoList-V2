@@ -9,15 +9,17 @@ public class TodoList
 {
     private DisplayMenu _displayMenu;
     private TodoView _todoView;
-    private Crud _crud;
+    private TodoListController _todoListController;
+    private UserController _userController;
     private EFContext _efContext;
-    
+    private TodoTask _todoTask;
     public TodoList()
     {
         _displayMenu = new DisplayMenu();
         _todoView = new TodoView();
         _efContext = new EFContext();
-        _crud = new Crud(_efContext);
+        _todoListController = new TodoListController(_efContext);
+        _todoTask = new TodoTask();
     }
     /// <summary>
     /// Method Menu for manage menu command
@@ -31,32 +33,49 @@ public class TodoList
             _todoView.display("Enter a command :");
             string input = Console.ReadLine();
             string[] argument = input.Split(" ");
-            Commands command = (Commands)Enum.Parse(typeof(Commands), argument[0]); 
-            switch (command)
-            {
-                case Commands.Help:
-                    _displayMenu.HelpMenuCommand();
-                    break;
-                case Commands.Add:
-                    string todoTaskDescription = string.Join(" ", argument.Skip(4));
-                    _crud.CreateTodoTask(ParsePriority(argument[1]), ParseDate(argument[2]), argument[3], todoTaskDescription, false);
-                    break;
-                case Commands.Update:
-                    _crud.UpdateTodoTask(int.Parse(argument[1]), argument[2]);
-                    break;
-                case Commands.Remove:
-                    _crud.deleteTodoTask(int.Parse(argument[1]));
-                    break;
-                case Commands.Filter:
-                    FilterManager();
-                    break;
-                case Commands.Show:
-                    _crud.ReadTodoTask();
-                    break;
-                default:
-                    _todoView.display("Error, incorrect command or don't exist");
-                    break;
-            }
+            Commands command = (Commands)Enum.Parse(typeof(Commands), argument[0]);
+            ManagerMenuCommands(argument, command);
+        }
+    }
+
+    
+    /// <summary>
+    /// Manager Commands Menu
+    /// </summary>
+    /// <param name="argument">argument of the command</param>
+    /// <param name="command">Command input</param>
+    private void ManagerMenuCommands(string[] argument,Commands command)
+    {
+        switch (command)
+        {
+            case Commands.Help:
+                _displayMenu.HelpMenuCommand();
+                break;
+            case Commands.CreateUser:
+                _userController.createUser(argument[1]);
+                break;
+            case Commands.Add:
+                string todoTaskDescription = string.Join(" ", argument.Skip(5));
+                _todoListController.CreateTodoTask(int.Parse(argument[1]),ParsePriority(argument[2]), ParseDate(argument[3]), argument[4], todoTaskDescription, false);
+                break;
+            case Commands.Update:
+                _todoListController.UpdateTodoTask(int.Parse(argument[1]), argument[2]);
+                break;
+            case Commands.Remove:
+                _todoListController.deleteTodoTask(int.Parse(argument[1]));
+                break;
+            case Commands.Filter:
+                FilterManager();
+                break;
+            case Commands.ShowTask:
+                _todoListController.ReadTodoTask();
+                break;
+            case Commands.ShowUser:
+                _todoListController.ReadUser();
+                break;
+            default:
+                _todoView.display("Error, incorrect command or don't exist");
+                break;
         }
     }
     
@@ -104,5 +123,25 @@ public class TodoList
     private PriorityStatus ParsePriority(string priority)
     {
         return Enum.Parse<PriorityStatus>(priority);
+    }
+    
+    public void AddUserId(int userId)
+    {
+        if (!_todoTask.TodoTaskIds.Contains(userId))
+        {
+            _todoTask.TodoTaskIds.Add(userId);
+        }
+        else
+        {
+            Console.WriteLine("err user id déjà");
+        }
+    }
+
+    public void showMachin()
+    {
+        foreach (var eList in _todoTask.TodoTaskIds)
+        {
+            _todoView.display(eList.ToString());
+        }
     }
 }

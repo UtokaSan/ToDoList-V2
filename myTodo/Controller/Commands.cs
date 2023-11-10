@@ -3,12 +3,15 @@ namespace myTodo.Controller;
 public enum Commands
 {
     Help,
+    CreateUser,
     Add,
     Update,
     Remove,
     Filter,
-    Show,
+    ShowTask,
+    ShowUser,
     Completed,
     DueDate,
-    Priority
+    Priority,
+    AddUser
 }

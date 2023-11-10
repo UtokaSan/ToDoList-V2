@@ -57,5 +57,5 @@ public class EFContext : DbContext
                 _todoView.display($"{eList.Id} {eList.Name} {eList.Priority}");
             }
         }
-    } 
+    }
 }

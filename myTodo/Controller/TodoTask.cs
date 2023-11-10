@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace myTodo.Controller;
 
@@ -6,26 +7,32 @@ public class TodoTask
 {
     [Key]
     public int Id { get; set; }
-
-    public List<int> TodoTaskIds;
-    public string Name { get; set; }
-    public string? Description { get; set; }
+    public int UserId { get; set; }
     public PriorityStatus Priority { get; set; }
     public DateTime CreationDate { get; set; }
     public DateTime DueDate { get; set; }
+    public string Name { get; set; }
+    public string? Description { get; set; }
     public bool IsCompleted { get; set; }
-
-    public TodoTask(PriorityStatus priority, DateTime creationDate, DateTime dueDate, string name,
-        string? description, bool isCompleted)
+    [NotMapped] 
+    public List<int> TodoTaskIds { get; set; }
+    public TodoTask(int userId, PriorityStatus priority, DateTime creationDate, DateTime dueDate, string name, string? description, bool isCompleted)
     {
         Priority = priority;
-        CreationDate = DateTime.Now;
+        CreationDate = creationDate;
         DueDate = dueDate;
         Name = name;
         Description = description;
         IsCompleted = isCompleted;
+        UserId = userId;
+        TodoTaskIds = new List<int> { userId };
     }
-
+    
+    public TodoTask()
+    {
+        
+    }
+    
     public override string ToString()
     {
         return
