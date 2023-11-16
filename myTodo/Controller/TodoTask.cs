@@ -14,8 +14,6 @@ public class TodoTask
     public string Name { get; set; }
     public string? Description { get; set; }
     public bool IsCompleted { get; set; }
-    [NotMapped] 
-    public List<int> TodoTaskIds { get; set; }
     public TodoTask(int userId, PriorityStatus priority, DateTime creationDate, DateTime dueDate, string name, string? description, bool isCompleted)
     {
         Priority = priority;
@@ -25,7 +23,6 @@ public class TodoTask
         Description = description;
         IsCompleted = isCompleted;
         UserId = userId;
-        TodoTaskIds = new List<int> { userId };
     }
     
     public TodoTask()

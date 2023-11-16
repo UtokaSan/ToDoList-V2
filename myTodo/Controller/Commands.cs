@@ -1,17 +1,24 @@
 namespace myTodo.Controller;
 
-public enum Commands
+public class Commands
 {
-    Help,
-    CreateUser,
-    Add,
-    Update,
-    Remove,
-    Filter,
-    ShowTask,
-    ShowUser,
-    Completed,
-    DueDate,
-    Priority,
-    AddUser
+    public enum Base
+    {
+        Help,
+        CreateUser,
+        Add,
+        Update,
+        Remove,
+        Filter,
+        ShowTask,
+        ShowUser
+    }
+
+    public enum Filter
+    {
+        Completed,
+        DueDate,
+        Priority,
+        ShowNameUserTask,
+    }
 }

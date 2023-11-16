@@ -58,4 +58,16 @@ public class EFContext : DbContext
             }
         }
     }
+
+    public void FilterShowNameUser(int id)
+    {
+        using (var db = new EFContext())
+        {
+            var result = db.TodoTasks.Where(x => x.Id == id).ToList();
+            foreach (var eResult in result)
+            {
+                _todoView.display($"{eResult.UserId}");
+            }
+        }
+    }
 }

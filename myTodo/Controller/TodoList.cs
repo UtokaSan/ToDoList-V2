@@ -33,7 +33,7 @@ public class TodoList
             _todoView.display("Enter a command :");
             string input = Console.ReadLine();
             string[] argument = input.Split(" ");
-            Commands command = (Commands)Enum.Parse(typeof(Commands), argument[0]);
+            Commands.Base command = (Commands.Base)Enum.Parse(typeof(Commands.Base), argument[0]);
             ManagerMenuCommands(argument, command);
         }
     }
@@ -44,33 +44,33 @@ public class TodoList
     /// </summary>
     /// <param name="argument">argument of the command</param>
     /// <param name="command">Command input</param>
-    private void ManagerMenuCommands(string[] argument,Commands command)
+    private void ManagerMenuCommands(string[] argument,Commands.Base command)
     {
         switch (command)
         {
-            case Commands.Help:
+            case Commands.Base.Help:
                 _displayMenu.HelpMenuCommand();
                 break;
-            case Commands.CreateUser:
+            case Commands.Base.CreateUser:
                 _userController.createUser(argument[1]);
                 break;
-            case Commands.Add:
+            case Commands.Base.Add:
                 string todoTaskDescription = string.Join(" ", argument.Skip(5));
                 _todoListController.CreateTodoTask(int.Parse(argument[1]),ParsePriority(argument[2]), ParseDate(argument[3]), argument[4], todoTaskDescription, false);
                 break;
-            case Commands.Update:
+            case Commands.Base.Update:
                 _todoListController.UpdateTodoTask(int.Parse(argument[1]), argument[2]);
                 break;
-            case Commands.Remove:
+            case Commands.Base.Remove:
                 _todoListController.deleteTodoTask(int.Parse(argument[1]));
                 break;
-            case Commands.Filter:
+            case Commands.Base.Filter:
                 FilterManager();
                 break;
-            case Commands.ShowTask:
+            case Commands.Base.ShowTask:
                 _todoListController.ReadTodoTask();
                 break;
-            case Commands.ShowUser:
+            case Commands.Base.ShowUser:
                 _todoListController.ReadUser();
                 break;
             default:
@@ -88,18 +88,20 @@ public class TodoList
         _todoView.display("Enter commands : ");
         string input = Console.ReadLine();
         string[] argument = input.Split(" ");
-        Commands command = (Commands)Enum.Parse(typeof(Commands), argument[0]); 
+        Commands.Filter command = (Commands.Filter)Enum.Parse(typeof(Commands.Filter), argument[0]); 
         switch (command)
         {
-            case Commands.Completed:
+            case Commands.Filter.Completed:
                 _efContext.findCompleted(bool.Parse(argument[1]));
                 break;
-            case Commands.DueDate:
+            case Commands.Filter.DueDate:
                 _efContext.filterDueDate();
                 break;
-            case Commands.Priority:
+            case Commands.Filter.Priority:
                 _efContext.filterPriority();
                 break;
+            case Commands.Filter.ShowNameUserTask:
+                
             default:
                 _todoView.display("Error, incorrect command or don't exist");
                 break;
@@ -123,25 +125,5 @@ public class TodoList
     private PriorityStatus ParsePriority(string priority)
     {
         return Enum.Parse<PriorityStatus>(priority);
-    }
-    
-    public void AddUserId(int userId)
-    {
-        if (!_todoTask.TodoTaskIds.Contains(userId))
-        {
-            _todoTask.TodoTaskIds.Add(userId);
-        }
-        else
-        {
-            Console.WriteLine("err user id déjà");
-        }
-    }
-
-    public void showMachin()
-    {
-        foreach (var eList in _todoTask.TodoTaskIds)
-        {
-            _todoView.display(eList.ToString());
-        }
     }
 }

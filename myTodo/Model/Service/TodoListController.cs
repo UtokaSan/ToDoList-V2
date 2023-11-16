@@ -90,4 +90,24 @@ public class TodoListController
             }
         }
     }
+
+    public void changeUserIdTodoTask(int idOfTask, int newIdUser)
+    {
+        using (var db = new EFContext())
+        {
+            try
+            {
+                var todoTask = db.TodoTasks.Find(idOfTask);
+                if (todoTask != null)
+                {
+                    todoTask.UserId = newIdUser;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+    }
 }
