@@ -10,17 +10,28 @@ public class EFContext : DbContext
     public DbSet<User> Users { get; set; }
     private const string connectionString = "Server=(localdb)\\mssqllocaldb;Database=EFCore;Trusted_Connection=True;";
     private TodoView _todoView;
+    private User _user;
 
     public EFContext()
     {
         _todoView = new TodoView();
+        _user = new User();
     }
-    
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<TodoTask>()
+            .HasOne(t => t.User)
+            .WithMany(u => u.TodoTasks)
+            .HasForeignKey(t => t.UserId);
+
+    }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlServer(connectionString);
     }
-
+    
     public void findCompleted(bool completed)
     {
         using (var db = new EFContext())
@@ -67,6 +78,65 @@ public class EFContext : DbContext
             foreach (var eResult in result)
             {
                 _todoView.display($"{eResult.UserId}");
+            }
+        }
+    }
+    public void changeUserIdTodoTask(int idOfTask, int newIdUser)
+    {
+        using (var db = new EFContext())
+        {
+            try
+            {
+                var todoTask = db.TodoTasks.Find(idOfTask);
+                if (todoTask != null)
+                {
+                    todoTask.UserId = newIdUser;
+                }
+            }
+            catch (Exception e)
+            {
+                _todoView.displayError(e);
+                throw;
+            }
+        }
+    }
+
+    public void GiveNameUserTask(int idOfTask)
+    {
+        using (var db = new EFContext())
+        {
+            try
+            {
+                var todoTask = db.TodoTasks.Find(idOfTask);
+                if (todoTask != null)
+                {
+                    var user = db.Users.Find(todoTask.UserId);
+                    if (user != null)
+                    {
+                        _todoView.display(user.Name);   
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                _todoView.displayError(e);
+                throw;
+            }
+        }
+    }
+
+    public void GiveNameUserNotTask()
+    {
+        using (var db = new EFContext())
+        {
+            try
+            {
+                
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
             }
         }
     }

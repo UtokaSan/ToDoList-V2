@@ -14,6 +14,7 @@ public class TodoTask
     public string Name { get; set; }
     public string? Description { get; set; }
     public bool IsCompleted { get; set; }
+    public User User { get; set; }
     public TodoTask(int userId, PriorityStatus priority, DateTime creationDate, DateTime dueDate, string name, string? description, bool isCompleted)
     {
         Priority = priority;

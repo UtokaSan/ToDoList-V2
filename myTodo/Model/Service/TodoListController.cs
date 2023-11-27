@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions.Internal;
 using MyApp.View;
 using myTodo.Controller;
@@ -18,10 +19,18 @@ public class TodoListController
     {
         using (var db = new EFContext())
         {
-            TodoTask todoTasks = new TodoTask(userId, priority, DateTime.Now, dueDate, name, description, isCompleted);
-            db.Add(todoTasks);
-            db.SaveChanges();
-            _todoView.display("Todo Task Created");
+            bool userExist = db.Users.Any(p => p.Id == userId);
+            if (userExist)
+            {
+                TodoTask todoTasks = new TodoTask(userId, priority, DateTime.Now, dueDate, name, description, isCompleted);
+                db.Add(todoTasks);
+                db.SaveChanges();
+                _todoView.display("Todo Task Created");   
+            }
+            else
+            {
+                _todoView.ColorText(ConsoleColor.Red, "User don't exist");
+            }
         }
     }
     public void ReadTodoTask()
@@ -61,12 +70,12 @@ public class TodoListController
                 }
                 else
                 {
-                    Console.WriteLine($"The id {id} was not found");
+                    _todoView.display($"The id {id} was not found");
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                _todoView.displayError(e);
             }
         }
     }
@@ -86,27 +95,7 @@ public class TodoListController
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-            }
-        }
-    }
-
-    public void changeUserIdTodoTask(int idOfTask, int newIdUser)
-    {
-        using (var db = new EFContext())
-        {
-            try
-            {
-                var todoTask = db.TodoTasks.Find(idOfTask);
-                if (todoTask != null)
-                {
-                    todoTask.UserId = newIdUser;
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
+                _todoView.displayError(e);
             }
         }
     }

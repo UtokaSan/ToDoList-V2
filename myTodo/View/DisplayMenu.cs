@@ -10,19 +10,18 @@ public class DisplayMenu
         Console.WriteLine("/!\\ You must create user before create todo");
         Console.ResetColor();
     }
-
     public void HelpMenuCommand()
     {
         Console.WriteLine("The commands available are :\n" +
-                          "CreateUser [name]\n" +
-                          "Add [id user] [priority] [due date] [name] [description]\n" +
-                          "Update [id] [description]\n" +
-                          "Remove [id]\n" +
-                          "Remove-Priority [priority]\n" +
-                          "Filter\n" +
-                          "ShowTask\n" +
-                          "ShowUser\n" +
-                          "CreateUser [name]");
+                          "CreateUser [name]    Create user with name\n" +
+                          "Add [id user] [priority] [due date] [name] [description]     Create task\n" +
+                          "Update [id] [description]    Update task\n" +
+                          "Remove [id]      Remove task\n" +
+                          "Remove-Priority [priority]   Remove all task with a certain priority\n" +
+                          "Filter   All filter\n" +
+                          "ShowTask    Show all Tasks\n" +
+                          "ShowUser    Show all Users\n" +
+                          "CreateUser [name]    Create User with name\n");
     }
 
     public void HelpFilterCommand()

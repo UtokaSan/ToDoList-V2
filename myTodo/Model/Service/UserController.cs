@@ -7,6 +7,11 @@ public class UserController
 {
     private TodoView _todoView;
     
+    public UserController()
+    {
+        _todoView = new TodoView();
+    }
+    
     public void createUser(string name)
     {
         using (var db = new EFContext())

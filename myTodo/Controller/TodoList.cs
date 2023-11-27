@@ -12,14 +12,13 @@ public class TodoList
     private TodoListController _todoListController;
     private UserController _userController;
     private EFContext _efContext;
-    private TodoTask _todoTask;
     public TodoList()
     {
         _displayMenu = new DisplayMenu();
         _todoView = new TodoView();
         _efContext = new EFContext();
+        _userController = new UserController();
         _todoListController = new TodoListController(_efContext);
-        _todoTask = new TodoTask();
     }
     /// <summary>
     /// Method Menu for manage menu command
@@ -101,7 +100,8 @@ public class TodoList
                 _efContext.filterPriority();
                 break;
             case Commands.Filter.ShowNameUserTask:
-                
+                _efContext.GiveNameUserTask(int.Parse(argument[1]));
+                break;
             default:
                 _todoView.display("Error, incorrect command or don't exist");
                 break;
