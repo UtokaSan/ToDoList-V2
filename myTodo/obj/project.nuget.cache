@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "HXYDw4+l7rXZQOQrTaFtfke54+XqPI5jWkO5Uy4600csqAru+LHsK4SJ4eTW9unL+S49BXxNsGKxmvdto/zD4g==",
+  "dgSpecHash": "PWQD9RtZaAJ7qXNnRfXUZsmrGFRuaFmnPDnpqb62cJHnqZquNzc1+725lLc1Hw66JmdQds8w+s3i+n6Cv9rM+A==",
   "success": true,
   "projectFilePath": "C:\\Users\\fboul\\RiderProjects\\myTodo\\myTodo\\myTodo.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\fboul\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\fboul\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
+    "C:\\Users\\fboul\\.nuget\\packages\\csvhelper\\24.0.1\\csvhelper.24.0.1.nupkg.sha512",
     "C:\\Users\\fboul\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\fboul\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\fboul\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
@@ -63,7 +64,8 @@
     "C:\\Users\\fboul\\.nuget\\packages\\system.text.encodings.web\\7.0.0\\system.text.encodings.web.7.0.0.nupkg.sha512",
     "C:\\Users\\fboul\\.nuget\\packages\\system.text.json\\7.0.0\\system.text.json.7.0.0.nupkg.sha512",
     "C:\\Users\\fboul\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
-    "C:\\Users\\fboul\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
+    "C:\\Users\\fboul\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512",
+    "C:\\Users\\fboul\\.nuget\\packages\\wk.csvwriter\\0.0.5\\wk.csvwriter.0.0.5.nupkg.sha512"
   ],
   "logs": []
 }

@@ -46,6 +46,19 @@
           }
         }
       },
+      "CsvHelper/24.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/net5.0/CsvHelper.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net5.0/CsvHelper.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Humanizer.Core/2.14.1": {
         "type": "package",
         "compile": {
@@ -1053,6 +1066,18 @@
             "rid": "win"
           }
         }
+      },
+      "wk.CsvWriter/0.0.5": {
+        "type": "package",
+        "dependencies": {
+          "CsvHelper": "24.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.0/CsvWriter.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/CsvWriter.dll": {}
+        }
       }
     }
   },
@@ -1093,6 +1118,28 @@
         "azureicon.png",
         "lib/netstandard2.0/Azure.Identity.dll",
         "lib/netstandard2.0/Azure.Identity.xml"
+      ]
+    },
+    "CsvHelper/24.0.1": {
+      "sha512": "90xJKK4AFa10ozIV3FRVU/IpTpv2r8c+c2MscHM6YMt9sjHhV+Vn0vxKolQfuvraohxtSiTys/tPWrT9FTUnWA==",
+      "type": "package",
+      "path": "csvhelper/24.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "csvhelper.24.0.1.nupkg.sha512",
+        "csvhelper.nuspec",
+        "lib/net45/CsvHelper.dll",
+        "lib/net45/CsvHelper.xml",
+        "lib/net47/CsvHelper.dll",
+        "lib/net47/CsvHelper.xml",
+        "lib/net5.0/CsvHelper.dll",
+        "lib/net5.0/CsvHelper.xml",
+        "lib/netstandard2.0/CsvHelper.dll",
+        "lib/netstandard2.0/CsvHelper.xml",
+        "lib/netstandard2.1/CsvHelper.dll",
+        "lib/netstandard2.1/CsvHelper.xml"
       ]
     },
     "Humanizer.Core/2.14.1": {
@@ -2875,6 +2922,18 @@
         "system.windows.extensions.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "wk.CsvWriter/0.0.5": {
+      "sha512": "Z+lI9KTtRFiENX+/BGmxDEGRh9mmOnKiDT53dFQUMxC76D3Pb35HRKBqCC6A5tLqWx9+VW3srL7N3cs7v8hfuQ==",
+      "type": "package",
+      "path": "wk.csvwriter/0.0.5",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/CsvWriter.dll",
+        "wk.csvwriter.0.0.5.nupkg.sha512",
+        "wk.csvwriter.nuspec"
+      ]
     }
   },
   "projectFileDependencyGroups": {
@@ -2882,7 +2941,8 @@
       "Microsoft.EntityFrameworkCore >= 7.0.13",
       "Microsoft.EntityFrameworkCore.Design >= 7.0.13",
       "Microsoft.EntityFrameworkCore.SqlServer >= 7.0.13",
-      "Microsoft.EntityFrameworkCore.Tools >= 7.0.13"
+      "Microsoft.EntityFrameworkCore.Tools >= 7.0.13",
+      "wk.CsvWriter >= 0.0.5"
     ]
   },
   "packageFolders": {
@@ -2941,6 +3001,10 @@
             "suppressParent": "All",
             "target": "Package",
             "version": "[7.0.13, )"
+          },
+          "wk.CsvWriter": {
+            "target": "Package",
+            "version": "[0.0.5, )"
           }
         },
         "imports": [

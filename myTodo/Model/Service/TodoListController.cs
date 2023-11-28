@@ -1,5 +1,4 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions.Internal;
+using System.Globalization;
 using MyApp.View;
 using myTodo.Controller;
 
@@ -97,6 +96,26 @@ public class TodoListController
             {
                 _todoView.displayError(e);
             }
+        }
+    }
+    public void ExportCSV()
+    {
+        using (var db = new EFContext())
+        {
+            var todoTasks = db.TodoTasks.ToList();
+            var users = db.Users.ToList();
+            CreateCSV(todoTasks);
+            string currentDirectory = Directory.GetCurrentDirectory();
+            _todoView.ColorText(ConsoleColor.Green,$"CSV exported successfully in : {currentDirectory}");
+        }
+    }
+    
+    private void CreateCSV(List<TodoTask> todoTasks)
+    {
+        using (StreamWriter writer = new StreamWriter(Path.Combine(Directory.GetCurrentDirectory(), "db.csv")))
+        using (CsvHelper.CsvWriter csv = new CsvHelper.CsvWriter(writer, CultureInfo.InvariantCulture))
+        {
+            csv.WriteRecords(todoTasks);
         }
     }
 }

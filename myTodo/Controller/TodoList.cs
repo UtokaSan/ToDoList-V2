@@ -72,6 +72,9 @@ public class TodoList
             case Commands.Base.ShowUser:
                 _todoListController.ReadUser();
                 break;
+            case Commands.Base.ExportCSV:
+                _todoListController.ExportCSV();
+                break;
             default:
                 _todoView.display("Error, incorrect command or don't exist");
                 break;

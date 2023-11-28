@@ -66,3 +66,5 @@ C:\Users\fboul\RiderProjects\myTodo\myTodo\obj\Debug\net7.0\refint\myTodo.dll
 C:\Users\fboul\RiderProjects\myTodo\myTodo\obj\Debug\net7.0\myTodo.pdb
 C:\Users\fboul\RiderProjects\myTodo\myTodo\obj\Debug\net7.0\myTodo.genruntimeconfig.cache
 C:\Users\fboul\RiderProjects\myTodo\myTodo\obj\Debug\net7.0\ref\myTodo.dll
+C:\Users\fboul\RiderProjects\myTodo\myTodo\bin\Debug\net7.0\CsvHelper.dll
+C:\Users\fboul\RiderProjects\myTodo\myTodo\bin\Debug\net7.0\CsvWriter.dll

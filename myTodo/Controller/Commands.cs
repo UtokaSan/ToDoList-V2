@@ -11,7 +11,8 @@ public class Commands
         Remove,
         Filter,
         ShowTask,
-        ShowUser
+        ShowUser,
+        ExportCSV
     }
 
     public enum Filter
