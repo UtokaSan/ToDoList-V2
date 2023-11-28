@@ -102,6 +102,9 @@ public class TodoList
             case Commands.Filter.ShowNameUserTask:
                 _efContext.GiveNameUserTask(int.Parse(argument[1]));
                 break;
+            case Commands.Filter.ShowUserWithoutTask:
+                _efContext.GiveNameUserNotTask();
+                break;
             default:
                 _todoView.display("Error, incorrect command or don't exist");
                 break;

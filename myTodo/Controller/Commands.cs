@@ -20,5 +20,6 @@ public class Commands
         DueDate,
         Priority,
         ShowNameUserTask,
+        ShowUserWithoutTask
     }
 }

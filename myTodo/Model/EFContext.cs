@@ -131,11 +131,18 @@ public class EFContext : DbContext
         {
             try
             {
-                
+                var usersWithoutTasks = db.Users
+                    .Where(user => !db.TodoTasks.Any(task => task.UserId == user.Id))
+                    .ToList();
+
+                foreach (var user in usersWithoutTasks)
+                {
+                    _todoView.display($"User without task : {user.Name}");
+                }
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                _todoView.displayError(e);
                 throw;
             }
         }

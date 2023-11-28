@@ -14,7 +14,7 @@ public class TodoView
         Console.WriteLine(e);
     }
 
-    public void displayObject(int id)
+    public void displayInt(int id)
     {
         Console.WriteLine(id);
     }
