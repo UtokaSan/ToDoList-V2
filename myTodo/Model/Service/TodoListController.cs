@@ -1,4 +1,5 @@
 using System.Globalization;
+using CsvHelper;
 using MyApp.View;
 using myTodo.Controller;
 
@@ -8,10 +9,12 @@ public class TodoListController
 {
     private TodoView _todoView;
     private EFContext _efContext;
+    private Timer notificationTimer;
     public TodoListController(EFContext efContext)
     {
         _todoView = new TodoView();
         _efContext = efContext;
+        notificationTimer = new Timer(ShowNotification, null, Timeout.Infinite, Timeout.Infinite);
     }
     public void CreateTodoTask(int userId, PriorityStatus priority, DateTime dueDate, string name,
         string? description, bool isCompleted)
@@ -21,6 +24,10 @@ public class TodoListController
             bool userExist = db.Users.Any(p => p.Id == userId);
             if (userExist)
             {
+                if (string.IsNullOrEmpty(description))
+                {
+                    notificationTimer.Change(60000, Timeout.Infinite);
+                }
                 TodoTask todoTasks = new TodoTask(userId, priority, DateTime.Now, dueDate, name, description, isCompleted);
                 db.Add(todoTasks);
                 db.SaveChanges();
@@ -54,6 +61,14 @@ public class TodoListController
                 _todoView.display($"Users : Id : {eUser.Id}, Name {eUser.Name}");
             }
         }
+    }
+
+    private void ShowNotification(object state)
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("Notification : don't forget to add description for the task");
+        Console.ResetColor();
+        notificationTimer.Change(Timeout.Infinite, Timeout.Infinite);
     }
     public void UpdateTodoTask(int id, string description)
     {
@@ -103,13 +118,27 @@ public class TodoListController
         using (var db = new EFContext())
         {
             var todoTasks = db.TodoTasks.ToList();
-            var users = db.Users.ToList();
             CreateCSV(todoTasks);
             string currentDirectory = Directory.GetCurrentDirectory();
             _todoView.ColorText(ConsoleColor.Green,$"CSV exported successfully in : {currentDirectory}");
         }
     }
-    
+
+    public void ImportCSV()
+    {
+        using (var reader = new StreamReader(Path.Combine(Directory.GetCurrentDirectory(), "db.csv")))
+        using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+        { 
+            var todoRecords = csv.GetRecords<TodoTask>().ToList();
+
+            using (var todoDbContext = new EFContext())
+            {
+                todoDbContext.TodoTasks.AddRange(todoRecords);
+                todoDbContext.SaveChanges();
+                Console.WriteLine("TodoTasks import successful");
+            }
+        }
+    }
     private void CreateCSV(List<TodoTask> todoTasks)
     {
         using (StreamWriter writer = new StreamWriter(Path.Combine(Directory.GetCurrentDirectory(), "db.csv")))

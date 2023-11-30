@@ -75,6 +75,9 @@ public class TodoList
             case Commands.Base.ExportCSV:
                 _todoListController.ExportCSV();
                 break;
+            case Commands.Base.ImportCSV:
+                _todoListController.ImportCSV();
+                break;
             default:
                 _todoView.display("Error, incorrect command or don't exist");
                 break;
