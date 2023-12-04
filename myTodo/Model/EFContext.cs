@@ -12,7 +12,10 @@ public class EFContext : DbContext
     private const string connectionString = "Server=(localdb)\\mssqllocaldb;Database=EFCore;Trusted_Connection=True;";
     private TodoView _todoView;
     private User _user;
-
+    
+    //Singleton Pattern
+    private static readonly Lazy<EFContext> lazyInstance = new Lazy<EFContext>(() => new EFContext());
+    public static EFContext Instance => lazyInstance.Value;
     public EFContext()
     {
         _todoView = new TodoView();
